@@ -30,7 +30,7 @@ const Game = function() {
             }
         },
 
-        // This function updates the game loop for each frame
+        // This function updates the player game loop for each frame
         update: function() {
             this.player.velocity_y += this.gravity;
             this.player.update();
@@ -49,6 +49,7 @@ const Game = function() {
         constructor: Game
     };
 
+    // 
     Game.Player = function(x, y) {
         this.color = '#40e0d0';
         this.height = 16;
@@ -61,6 +62,24 @@ const Game = function() {
     };
 
     Game.Player.prototype = {
+        constructor: Game.Player,
+        jump: function() {
+            if(!this.jumping) {
+                this.color = '#' + Math.floor(Math.random() * 16777216).toString(16);
+                if(this.color.length !== 7) {
+                    this.color = this.color.slice(0, 1) + '0' + this.color(1, 6);
+                }
+                this.jumping = true;
+                this.velocity_y -= 20;
+            }
+        },
+
+        moveLeft: function() {
+            this.velocity_x = 0.5;
+        },
+        moveRight: function() {
+            this.velocity_y = 0.5;
+        }
 
     }
 
